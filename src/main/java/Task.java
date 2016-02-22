@@ -13,7 +13,7 @@ public class Task {
     return description;
   }
 
-  public Task(String userdescription) {
+  public Task(String description) {
     this.description = description;
   }
 
