@@ -48,6 +48,7 @@ public class Task {
   try(Connection con = DB.sql2o.open()) {
     String sql = "SELECT * FROM Tasks where id=:id";
     Task task = con.createQuery(sql)
+      .throwOnMappingFailure(false)
       .addParameter("id", id)
       .executeAndFetchFirst(Task.class);
     return task;

@@ -40,4 +40,10 @@ public class CategoryTest {
     Category savedCategory = Category.find(myCategory.getId());
     assertTrue(myCategory.equals(savedCategory));
   }
+
+  @Test
+  public void tasks_findsemptyAtFirst() {
+    Category myCategory = new Category("Home");
+    assertEquals(myCategory.tasks().size(), 0);
+  }
 }

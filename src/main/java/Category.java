@@ -46,11 +46,23 @@ public class Category {
 
   public static Category find(int id) {
   try(Connection con = DB.sql2o.open()) {
-    String sql = "SELECT * FROM categories where id=:id";
+    String sql = "SELECT * FROM categories WHERE id=:id";
     Category category = con.createQuery(sql)
+      .throwOnMappingFailure(false)
       .addParameter("id", id)
       .executeAndFetchFirst(Category.class);
     return category;
+    }
+  }
+
+  public List<Task> tasks() {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT * FROM tasks WHERE category_id=:id";
+      List<Task> tasks = con.createQuery(sql)
+        .throwOnMappingFailure(false)
+        .addParameter("id", id)
+        .executeAndFetch(Task.class);
+      return tasks;
     }
   }
 }
