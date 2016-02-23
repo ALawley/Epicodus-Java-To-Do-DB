@@ -1,6 +1,7 @@
 import org.junit.*;
 import static org.junit.Assert.*;
 import org.junit.Rule;
+import java.util.Arrays;
 
 public class CategoryTest {
   @Rule
@@ -42,8 +43,14 @@ public class CategoryTest {
   }
 
   @Test
-  public void tasks_findsemptyAtFirst() {
-    Category myCategory = new Category("Home");
-    assertEquals(myCategory.tasks().size(), 0);
+  public void getTasks_retrievesALlTasksFromDatabase_tasksList() {
+    Category myCategory = new Category("Household chores");
+    myCategory.save();
+    Task firstTask = new Task("Mow the lawn", myCategory.getId(), "2016-02-25");
+    firstTask.save();
+    Task secondTask = new Task("Do the dishes", myCategory.getId(), "2016-02-25");
+    secondTask.save();
+    Task[] tasks = new Task[] { firstTask, secondTask };
+    assertTrue(myCategory.getTasks().containsAll(Arrays.asList(tasks)));
   }
 }
